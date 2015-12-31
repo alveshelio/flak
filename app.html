@@ -1,0 +1,46 @@
+<head>
+  <title>app</title>
+</head>
+
+<body>
+{{> CommentList}}
+{{> CommentAdd}}
+</body>
+
+<template name="CommentList">
+  <h1>Layout</h1>
+
+  <!--Block helper-->
+  <ul>
+    <!-- #each is the helper - comments is the function -->
+    {{#each comments}}
+      <li>
+        <div>
+          <!-- property from the data context "comments" (Javascript Object) -->
+          {{login}}
+        </div>
+        <div>
+          <!-- property from the data context "comments" (Javascript Object) -->
+          {{comment}}
+        </div>
+        <div>
+          <!-- property from the data context "comments" (Javascript Object) -->
+          <span>on: </span>{{timestamp}}
+        </div>
+
+      </li>
+
+      <!-- else block -->
+    {{else}}
+      <li>Sorry, no comments yet!</li>
+    {{/each}}
+  </ul>
+
+</template>
+
+<template name="CommentAdd">
+  <form>
+    <input type="text" name="comment" autofocus placeholder="Add a comment..."/>
+    <input type="submit"/>
+  </form>
+</template>
