@@ -1,6 +1,11 @@
 Comments = new Mongo.Collection('comments');
 
 if (Meteor.isClient) {
+    Meteor.subscribe('comments', function() {
+        console.log('holly smokes it\'s ready');
+    });
+    Meteor.subscribe('recentComments');
+
     Template.CommentList.helpers({
         comments: function() {
             return Comments.find();
@@ -35,5 +40,16 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
+    Meteor.publish('comments', function() {
+
+        this.added('comments', 'a', {comment: 'comment from the publishing function'});
+        this.added('comments', 'b', {comment: 'publishing func comment'});
+        this.added('comments', 'c', {comment: 'another comment from the publishing function'});
+        this.ready();
+    });
+
+    Meteor.publish('recentComments', function() {
+        this.added('comments', 'a', {comment: 'New comment from the publishing function on id a'});
+    });
 
 }
