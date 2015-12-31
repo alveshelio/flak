@@ -25,7 +25,8 @@
         </div>
         <div>
           <!-- property from the data context "comments" (Javascript Object) -->
-          <span>on: </span>{{timestamp}}
+          {{formatTimestamp timestamp}}
+          <!-- formatTimestamp is a function and we are passing parameter "timestamp" it is = formatTimestamp(timestamp)  -->
         </div>
 
       </li>

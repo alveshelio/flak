@@ -4,8 +4,15 @@ if (Meteor.isClient) {
     Template.CommentList.helpers({
         comments: function() {
             return Comments.find();
+        },
+        // Parameter timestamp is being passed from the template
+        // which in turn is being passed by Comments.insert({});
+        formatTimestamp: function(timestamp) {
+            return moment(timestamp).calendar();
         }
     });
+
+
 
     Template.CommentAdd.events({
         'submit form': function(e, tmpl) {
