@@ -1,1 +1,10 @@
 /* CSS declarations go here */
+.welcome {
+    font-family: roboto;
+    font-size: 30px;
+    color: #777;
+}
+
+.welcome span {
+    color: #999;
+}

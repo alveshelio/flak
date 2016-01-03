@@ -3,12 +3,13 @@
 </head>
 
 <body>
+{{> Login}}
 {{> CommentList}}
 {{> CommentAdd}}
 </body>
 
 <template name="CommentList">
-  <h1>Layout</h1>
+  <h1>Flak</h1>
 
   <!--Block helper-->
   <ul>
@@ -44,4 +45,10 @@
     <input type="text" name="comment" autofocus placeholder="Add a comment..."/>
     <input type="submit"/>
   </form>
+</template>
+
+<template name="Login">
+    <h4 class="welcome">Hello <span>{{ currentUser.profile.name}}</span></h4>
+
+    {{> loginButtons}}
 </template>
