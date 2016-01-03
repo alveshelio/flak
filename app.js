@@ -1,7 +1,21 @@
 Comments = new Mongo.Collection('comments');
 
 if (Meteor.isClient) {
-    //Meteor.subscribe('allComments');
+
+    Meteor.subscribe('allComments');
+
+    // Method simulation
+    Meteor.methods({
+        callMe: function() {
+            console.log('client simulation');
+        }
+    });
+
+    // RPC calling function
+    Meteor.call('callMe', 'Helio', function(err, result) {
+        if (err) throw err;
+        console.log('result: ', result);
+    });
 
     Template.CommentList.helpers({
         comments: function() {
@@ -37,6 +51,14 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
+
+    //RPC "Remote Procedural Call"
+    Meteor.methods({
+        callMe: function(name) {
+            return 'hello ' + name;
+        }
+    });
+
     Meteor.publish('allComments', function() {
         var cursor = Comments.find();
         var self = this;
