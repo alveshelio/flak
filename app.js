@@ -17,6 +17,22 @@ if (Meteor.isClient) {
     //    console.log('result: ', result);
     //});
 
+    // Defining a global Helper
+    Template.registerHelper('get', function(key) {
+        return Session.get(key);
+    });
+
+    //Template.UnderstandingSession.helpers({
+    //    counter: function() {
+    //        return Session.get('counter');
+    //    }
+    //});
+
+    var counter = 0;
+    setInterval(function() {
+        Session.set('counter', ++counter);
+    }, 1000);
+
     Template.CommentList.helpers({
         comments: function() {
             return Comments.find();
