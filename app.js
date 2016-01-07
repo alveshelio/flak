@@ -5,17 +5,17 @@ if (Meteor.isClient) {
     Meteor.subscribe('allComments');
 
     // Method simulation
-    Meteor.methods({
-        callMe: function() {
-            console.log('client simulation');
-        }
-    });
+    //Meteor.methods({
+    //    callMe: function() {
+    //        console.log('client simulation');
+    //    }
+    //});
 
     // RPC calling function
-    Meteor.call('callMe', 'Helio', function(err, result) {
-        if (err) throw err;
-        console.log('result: ', result);
-    });
+    //Meteor.call('callMe', 'Helio', function(err, result) {
+    //    if (err) throw err;
+    //    console.log('result: ', result);
+    //});
 
     Template.CommentList.helpers({
         comments: function() {
@@ -51,35 +51,30 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
-
-    //RPC "Remote Procedural Call"
-    Meteor.methods({
-        callMe: function(name) {
-            return 'hello ' + name;
+    Comments.allow({
+        insert: function (userId, doc) {
+            return !!userId;
+        },
+        remove: function (userId, doc) {
+            return false;
+        },
+        update: function (userId, doc) {
+            return false;
         }
     });
 
+    //RPC "Remote Procedural Call"
+    //Meteor.methods({
+    //    callMe: function(name) {
+    //        return 'hello ' + name;
+    //    }
+    //});
+
     Meteor.publish('allComments', function() {
-        var cursor = Comments.find();
-        var self = this;
-        var handle = cursor.observeChanges({
-            added: function(id, fields) {
-                self.added('comments', id, fields);
-            },
-            changed: function(id, fields) {
-                self.changed('comments', id, fields);
-            },
-            removed: function(id) {
-                self.removed('comments', id);
-            }
-        });
-
-        this.ready();
-
-        // stop observing
-        this.onStop(function() {
-            handle.stop();
-        })
+        if (this.userId){
+            return Comments.find();
+        } else {
+            return this.ready();
+        }
     });
-
 }

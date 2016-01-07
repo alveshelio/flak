@@ -3,9 +3,22 @@
 </head>
 
 <body>
-{{> CommentList}}
-{{> CommentAdd}}
+{{> UnderstandingSession}}
 </body>
+
+<template name="UnderstandingSession">
+  <h1>Understanding Session</h1>
+
+  <div>
+    {{counter}}
+  </div>
+</template>
+
+<template name="Layout">
+  {{> Login}}
+  {{> CommentList}}
+  {{> CommentAdd}}
+</template>
 
 <template name="CommentList">
   <h1>Layout</h1>
@@ -44,4 +57,9 @@
     <input type="text" name="comment" autofocus placeholder="Add a comment..."/>
     <input type="submit"/>
   </form>
+</template>
+
+
+<template name="Login">
+  {{> loginButtons}}
 </template>
